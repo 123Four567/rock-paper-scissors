@@ -1,3 +1,43 @@
+let buttons = document.querySelectorAll('button')
+let div = document.createElement('div')
+let round = document.createElement('h2')
+let finalResult = document.createElement('h1')
+let scoreCom = document.createElement('p')
+let scorePlay = document.createElement('p')
+
+div.appendChild(scorePlay)
+div.appendChild(scoreCom)
+div.appendChild(round)
+div.appendChild(finalResult)
+document.body.appendChild(div)
+
+let singleRoundFunc = 0
+buttons.forEach( button => {
+    button.addEventListener('click', (e) => {
+        singleRoundFunc++
+        singleRound(e.target.innerText)
+        if (singleRoundFunc == 5){
+            singleRoundFunc -= 5
+            if (player > computer) {
+                player = 0
+                computer = 0
+                finalResult.textContent = 'Player wins!'
+            } else if (player < computer) {
+                player = 0
+                computer = 0
+                finalResult.textContent = 'Computer wins!'
+            } else if (player = computer) {
+                player = 0
+                computer = 0
+                finalResult.textContent = 'Is a tie!'
+            }
+        } else if (singleRoundFunc < 5) {
+            finalResult.textContent = ""
+        }
+
+    })
+})
+
 function computerPlay() {
     let random = Math.floor(Math.random() * 3)
     if (random === 0) {
@@ -9,51 +49,39 @@ function computerPlay() {
     }
 }
 
-function game() {
-    let player = 0
-    let computer = 0
-        function singleRound(playerSelection, computerSelection) {
-        playerSelection = prompt('Enter Rock, Paper or Scissors')
-        computerSelection = computerPlay()
-        let Rock = /Rock/ig 
-        let Paper = /Paper/ig
-        let Scissors = /Scissors/ig
-        
-        if (playerSelection.match(Rock) && computerSelection === 'Rock') {
-            return 'No one wins.'
-        } else if (playerSelection.match(Paper) && computerSelection === 'Paper') {
-            return 'No one wins.'
-        } else if (playerSelection.match(Scissors) && computerSelection === 'Scissors') {
-            return 'No one wins.'
-        } else if (playerSelection.match(Rock) && computerSelection === 'Paper') {
-            computer++
-            return `You lose! ${computerSelection} beats ${playerSelection}`
-        } else if (playerSelection.match(Paper) && computerSelection === 'Scissors') {
-            computer++
-            return `You lose! ${computerSelection} beats ${playerSelection}`
-        } else if (playerSelection.match(Scissors) && computerSelection === 'Rock') {
-            computer++
-            return `You lose! ${computerSelection} beats ${playerSelection}`
-        } else {
-            player++
-            return `You win! ${playerSelection} beats ${computerSelection}`
-        } 
-    }
 
-    for (let i = 0; i < 5; i++){
-        console.log(singleRound())
-    }
+let player = 0
+let computer = 0
 
-    if (player > computer){
-        console.log('Player wins!')
-    } else if (player < computer){
-        console.log('Computer wins!')
-    } else if (player === computer) {
-        console.log('Is a tie!')
-    }
+function singleRound(playerSelection,computerSelection) {
+         
+    computerSelection = computerPlay()
+
         
-            
-    return singleRound()
+    if (playerSelection.match(/Rock/ig) && computerSelection === 'Rock') {
+        round.textContent = 'No one wins.'
+    } else if (playerSelection.match(/Paper/ig) && computerSelection === 'Paper') {
+        round.textContent = 'No one wins.'
+    } else if (playerSelection.match(/Scissors/ig) && computerSelection === 'Scissors') {
+        round.textContent = 'No one wins.'
+    } else if (playerSelection.match(/Rock/ig) && computerSelection === 'Paper') {
+        computer++
+        round.textContent = `You lose! ${computerSelection} beats ${playerSelection}`
+    } else if (playerSelection.match(/Paper/ig) && computerSelection === 'Scissors') {
+        computer++
+        round.textContent = `You lose! ${computerSelection} beats ${playerSelection}`
+    } else if (playerSelection.match(/Scissors/ig) && computerSelection === 'Rock') {
+        computer++
+        round.textContent = `You lose! ${computerSelection} beats ${playerSelection}`
+    } else {
+        player++
+        round.textContent = `You win! ${playerSelection} beats ${computerSelection}`
+    } 
+        
+    scorePlay.textContent = 'Player: ' + player
+    scoreCom.textContent = 'Computer: ' + computer
 }
+ 
+    
+              
 
-game()
